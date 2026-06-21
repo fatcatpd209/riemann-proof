@@ -8,7 +8,7 @@ on:
 
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,18 +18,15 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Rocq 9 (opam, full Coquelicot included)
+      - name: Install Coq + Coquelicot (apt, jammy universe)
         run: |
           sudo apt-get update
-          sudo apt-get install -y opam
-          opam init --disable-sandboxing -a git://github.com/ocaml/opam-repository.git 2>&1 | tail -10 || true
-          eval ""
-          opam update
-          opam install -y ocaml-base-compiler ocamlfind
-          opam install -y rocq rocq-reals rocq-coquelicot 2>&1 | tail -30
-          eval ""
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends coq libcoquelicot-coq
           coqc --version
-          coqtop --version 2>/dev/null || true
+          echo "--- coquelicot location ---"
+          find /usr -name Rbar.v 2>/dev/null | head -5
+          find /usr -type d -name coquelicot 2>/dev/null | head -5
+          echo "---"
 
       - name: Layer 1  DAG static analysis
         run: python3 dag_verify.py
