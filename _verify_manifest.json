@@ -4,7 +4,7 @@
         "VoFile":  "riemann_coq.vo",
         "OK":  true,
         "Exit":  0,
-        "Sec":  0.71
+        "Sec":  0.68
     },
     {
         "Module":  "logic_tools.v",
@@ -18,7 +18,7 @@
         "VoFile":  "base_library.vo",
         "OK":  true,
         "Exit":  0,
-        "Sec":  1.03
+        "Sec":  1.01
     },
     {
         "Module":  "main_proof.v",
@@ -39,7 +39,7 @@
         "VoFile":  "extension_lehmer.vo",
         "OK":  true,
         "Exit":  0,
-        "Sec":  0.89
+        "Sec":  0.9
     },
     {
         "Module":  "riemann_hypothesis_formal.v",
@@ -53,6 +53,6 @@
         "VoFile":  "riemann_coq_analysis.vo",
         "OK":  true,
         "Exit":  0,
-        "Sec":  1.04
+        "Sec":  1.06
     }
 ]
