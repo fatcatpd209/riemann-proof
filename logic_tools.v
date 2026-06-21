@@ -1,10 +1,10 @@
-﻿From Stdlib Require Import Reals Lra Classical Classical_Prop.
+From Stdlib Require Import Reals Lra.
 Open Scope R_scope.
 
 Lemma real_contrad_le_ge : forall x : R, x <= 0 -> 0 <= x -> x = 0.
 Proof.
   intros x Hle Hge.
-  assert (Hdec : x < 0 \/ ~ (x < 0)). { apply classic. }
+  assert (Hdec : x < 0 \/ ~ (x < 0)). { destruct (Rlt_le_dec x 0) as [Hlt | Hge0]. left. exact Hlt. right. lra. }
   destruct Hdec as [Hlt | Hnlt].
   - exfalso. lra.
   - assert (Hxeq : x = 0). lra. exact Hxeq.

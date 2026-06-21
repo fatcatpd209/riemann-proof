@@ -1,4 +1,4 @@
-From Stdlib Require Import Reals Lra Classical Classical_Prop.
+From Stdlib Require Import Reals Lra.
 Open Scope R_scope.
 
 Lemma _c0': forall (y : R) (Heq : y = 0) (Hlt : y < 0), False.

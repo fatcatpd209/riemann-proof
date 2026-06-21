@@ -1,6 +1,6 @@
 Require Import main_proof.
 
-From Stdlib Require Import Reals Lra Classical Classical_Prop.
+From Stdlib Require Import Reals Lra.
 
 Open Scope R_scope.
 
