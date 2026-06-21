@@ -1,4 +1,4 @@
-# Research on the Riemann Hypothesis
+﻿# Research on the Riemann Hypothesis
 
 **Author**: Mathematics Research Group  
 **Date**: June 2026

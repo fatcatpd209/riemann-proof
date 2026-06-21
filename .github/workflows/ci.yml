@@ -1,4 +1,4 @@
-name: RiemannProof CI
+﻿name: RiemannProof CI
 
 on:
   push:
@@ -18,16 +18,13 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Rocq 9 via opam (matches local 9.0.1, supports 'From Stdlib ...' syntax)
+      - name: Install Coq 8.19 (apt, universe repo)
         run: |
           sudo apt-get update
-          sudo apt-get install -y opam
-          opam init --disable-sandboxing -a git://github.com/ocaml/opam-repository.git 2>&1 | tail -5 || true
-          eval "$(opam env)"
-          opam update
-          opam install -y ocaml-base-compiler ocamlfind
-          opam install -y rocq rocq-reals rocq-coquelicot 2>&1 | tail -30
-          eval "$(opam env)"
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y universe
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends coq libcoquelicot-coq
           coqc --version
 
       - name: Layer 1  DAG static analysis

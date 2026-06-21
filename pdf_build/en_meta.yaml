@@ -1,0 +1,29 @@
+title: "Research on the Riemann Hypothesis"
+author: "Mathematics Research Group"
+date: "June 2026"
+documentclass: article
+mainfont: "Latin Modern Roman"
+sansfont: "Latin Modern Sans"
+monofont: "Latin Modern Mono"
+fontsize: 11pt
+papersize: a4
+geometry:
+  - margin=2.5cm
+numbersections: true
+indent: true
+linestretch: 1.25
+header-includes:
+  - \usepackage{amsmath,amssymb,amsfonts}
+  - \usepackage{mathtools}
+  - \usepackage{bm}
+  - \usepackage{mathrsfs}
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{float}
+  - \usepackage{hyperref}
+  - \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+  - \usepackage{caption}
+  - \captionsetup{font=small}
+  - \raggedbottom
+pdf-engine: xelatex
