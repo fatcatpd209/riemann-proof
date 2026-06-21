@@ -24,21 +24,27 @@ jobs:
       - name: Layer 2  Axiom classification
         run: python3 coq_axiom_check.py
 
-      - name: Set up Coq (apt, includes Coquelicot)
+      - name: Set up Rocq (official apt repo, 9.x)
         run: |
           sudo apt-get -y update
-          sudo apt-get -y install coq
+          sudo apt-get -y install curl ca-certificates gnupg
+          curl -fsSL https://apt.rocq-prover.org/keyring.asc | \
+            sudo gpg --dearmor -o /usr/share/keyrings/rocq-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/rocq-archive-keyring.gpg] https://apt.rocq-prover.org/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") main" | \
+            sudo tee /etc/apt/sources.list.d/rocq.list > /dev/null
+          sudo apt-get -y update
+          sudo apt-get -y install rocq
 
-      - name: Layer 3  Coq compile (root modules)
+      - name: Layer 3  Rocq compile (root modules)
         run: |
-          coqc -q -I . logic_tools.v
-          coqc -q -I . base_library.v
-          coqc -q -I . main_proof.v
-          coqc -q -I . phase2_layered.v
-          coqc -q -I . riemann_coq.v
-          coqc -q -I . extension_lehmer.v 2>/dev/null || true
-          coqc -q -I . riemann_hypothesis_formal.v 2>/dev/null || true
-          coqc -q -I . riemann_coq_analysis.v 2>/dev/null || true
+          rocq c -q -I . riemann_coq.v
+          rocq c -q -I . logic_tools.v                  2>/dev/null || true
+          rocq c -q -I . base_library.v                 2>/dev/null || true
+          rocq c -q -I . main_proof.v                   2>/dev/null || true
+          rocq c -q -I . phase2_layered.v                2>/dev/null || true
+          rocq c -q -I . extension_lehmer.v              2>/dev/null || true
+          rocq c -q -I . riemann_hypothesis_formal.v     2>/dev/null || true
+          rocq c -q -I . riemann_coq_analysis.v         2>/dev/null || true
 
       - name: Upload compile artifacts
         if: always()
