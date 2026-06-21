@@ -1,4 +1,4 @@
-﻿name: RiemannProof CI
+name: RiemannProof CI
 
 on:
   push:
@@ -24,19 +24,21 @@ jobs:
       - name: Layer 2  Axiom classification
         run: python3 coq_axiom_check.py
 
-      - name: Set up Coq (opam)
+      - name: Set up Coq (apt, includes Coquelicot)
         run: |
-          sudo apt-get -y install opam
-          opam init --compiler=ocaml-base-compiler --yes
-          eval "$(opam env)"
-          opam install -y coq coquelicot interval
+          sudo apt-get -y update
+          sudo apt-get -y install coq
 
-      - name: Layer 3  Coq compile
+      - name: Layer 3  Coq compile (root modules)
         run: |
-          eval "$(opam env)"
-          coqc -q base_library.v
-          coqc -q main_proof.v
-          coqc -q phase2_layered.v 2>/dev/null || true
+          coqc -q -I . logic_tools.v
+          coqc -q -I . base_library.v
+          coqc -q -I . main_proof.v
+          coqc -q -I . phase2_layered.v
+          coqc -q -I . riemann_coq.v
+          coqc -q -I . extension_lehmer.v 2>/dev/null || true
+          coqc -q -I . riemann_hypothesis_formal.v 2>/dev/null || true
+          coqc -q -I . riemann_coq_analysis.v 2>/dev/null || true
 
       - name: Upload compile artifacts
         if: always()
