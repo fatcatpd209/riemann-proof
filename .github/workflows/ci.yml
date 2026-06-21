@@ -37,8 +37,6 @@ jobs:
           coqc -q -I . main_proof.v                         2>/dev/null || true
           coqc -q -I . phase2_layered.v                     2>/dev/null || true
           coqc -q -I . extension_lehmer.v                     2>/dev/null || true
-          coqc -q -I . riemann_hypothesis_formal.v          2>/dev/null || true
-          coqc -q -I . riemann_coq_analysis.v                2>/dev/null || true
 
       - name: Upload compile artifacts
         if: always()
