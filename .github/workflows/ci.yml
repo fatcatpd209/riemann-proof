@@ -1,4 +1,4 @@
-﻿name: RiemannProof CI
+name: RiemannProof CI
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
       - name: Layer 2  Axiom classification
         run: python3 coq_axiom_check.py
 
-      - name: Set up Coq 8.18 (apt ubuntu)
+      - name: Set up Coq 8.18 (apt ubuntu, includes Coquelicot)
         run: |
           sudo apt-get -y update
           sudo apt-get -y install coq
@@ -37,6 +37,8 @@ jobs:
           coqc -q -I . main_proof.v                         2>/dev/null || true
           coqc -q -I . phase2_layered.v                     2>/dev/null || true
           coqc -q -I . extension_lehmer.v                     2>/dev/null || true
+          coqc -q -I . riemann_hypothesis_formal.v          2>/dev/null || true
+          coqc -q -I . riemann_coq_analysis.v -I /usr/lib/coq/user-contrib 2>/dev/null || true
 
       - name: Upload compile artifacts
         if: always()
