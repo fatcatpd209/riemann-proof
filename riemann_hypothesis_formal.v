@@ -1,4 +1,4 @@
-From Stdlib Require Import Reals Lra Classical Psatz List Arith.
+Require Import Reals Lra Classical Psatz List Arith.
 Open Scope R_scope.
 
 Record Complex : Type := { re : R; im : R }.

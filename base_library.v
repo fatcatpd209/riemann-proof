@@ -1,4 +1,4 @@
-From Stdlib Require Import Reals Lra.
+Require Import Reals Lra.
 Open Scope R_scope.
 
 Lemma sign_flip : forall x y : R, (-x) * (-y) = x * y. Proof. intros. ring. Qed.

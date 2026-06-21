@@ -1,4 +1,4 @@
-From Stdlib Require Import Reals Lra.
+Require Import Reals Lra.
 Open Scope R_scope.
 
 Lemma real_contrad_le_ge : forall x : R, x <= 0 -> 0 <= x -> x = 0.

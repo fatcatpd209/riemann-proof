@@ -1,4 +1,4 @@
-From Stdlib Require Import Reals Lra Classical Psatz List Arith.
+Require Import Reals Lra Classical Psatz List Arith.
 From Coquelicot Require Import Rbar Derive.
 
 Parameter Derive_at : (Rbar -> Rbar) -> Rbar -> Rbar.

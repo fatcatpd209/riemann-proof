@@ -1,4 +1,4 @@
-From Stdlib Require Import Reals Lra.
+Require Import Reals Lra.
 Require Import base_library.
 
 Open Scope R_scope.
