@@ -1,0 +1,67 @@
+﻿# Binary build artifacts
+*.vo
+*.vos
+*.vok
+*.glob
+*.o
+*.cmi
+*.cmo
+*.cmt
+*.cmti
+*.cmx
+*.cmxa
+*.exe
+*.log
+*.aux
+*.toc
+
+# Python/Misc build caches
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+ci_out_*/
+coq_verification/
+temp/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Large PDFs/images/docs
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.docx
+*.tex
+*.bak
+*.bak2
+*备份*
+*original*
+*broken*
+a1.txt
+a1.md
+a1_converted.md
+md.txt
+stderr.txt
+stdout.txt
+priority.txt
+审核步骤.txt
+
+# Temp/debug scripts
+_*.py
+_*.ps1
+.*.v
+.*.aux
+
+# Preserved whitelist (NOT ignored)
+!CHECKLIST.md
+!Makefile
