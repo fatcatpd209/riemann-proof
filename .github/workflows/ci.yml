@@ -27,7 +27,6 @@ jobs:
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends coq
           coqc --version
           which coqc
-          ls -la /usr/bin/coqc || true
 
       - name: Layer 1  DAG static analysis
         run: python3 dag_verify.py
@@ -35,17 +34,22 @@ jobs:
       - name: Layer 2  Axiom classification
         run: python3 coq_axiom_check.py
 
-      - name: Layer 3  Coq compile (root modules)
-        run: |
-          set -e
-          coqc -q -I . riemann_coq.v
-          coqc -q -I . logic_tools.v
-          coqc -q -I . base_library.v
-          coqc -q -I . main_proof.v
-          coqc -q -I . phase2_layered.v
-          coqc -q -I . extension_lehmer.v
-          coqc -q -I . riemann_hypothesis_formal.v
-          coqc -q -I . riemann_coq_analysis.v
+      - name: Compile riemann_coq.v
+        run: coqc -q -I . riemann_coq.v
+      - name: Compile logic_tools.v
+        run: coqc -q -I . logic_tools.v
+      - name: Compile base_library.v
+        run: coqc -q -I . base_library.v
+      - name: Compile main_proof.v
+        run: coqc -q -I . main_proof.v
+      - name: Compile phase2_layered.v
+        run: coqc -q -I . phase2_layered.v
+      - name: Compile extension_lehmer.v
+        run: coqc -q -I . extension_lehmer.v
+      - name: Compile riemann_hypothesis_formal.v
+        run: coqc -q -I . riemann_hypothesis_formal.v
+      - name: Compile riemann_coq_analysis.v
+        run: coqc -q -I . riemann_coq_analysis.v
 
       - name: Upload compile artifacts
         if: always()
