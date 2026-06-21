@@ -18,14 +18,16 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Coq 8.19 (apt, universe repo)
+      - name: Install Coq 8.18 (apt, universe repo)
         run: |
           sudo apt-get update
           sudo apt-get install -y software-properties-common
-          sudo add-apt-repository -y universe
+          sudo add-apt-repository -y universe > /dev/null 2>&1 || true
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends coq libcoquelicot-coq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends coq
           coqc --version
+          which coqc
+          ls -la /usr/bin/coqc || true
 
       - name: Layer 1  DAG static analysis
         run: python3 dag_verify.py
