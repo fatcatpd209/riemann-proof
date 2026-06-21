@@ -1,4 +1,4 @@
-﻿(* riemann_coq_analysis.v
+(* riemann_coq_analysis.v
    Real analysis layer built on top of Coquelicot
    (Coquelicot is already in Rocq-Platform 9.0 user-contrib)
 

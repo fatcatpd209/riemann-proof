@@ -1,4 +1,4 @@
-﻿From Stdlib Require Import Basics.
+From Stdlib Require Import Basics.
 
 Set Implicit Arguments.
 

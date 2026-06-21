@@ -1,4 +1,4 @@
-﻿From Stdlib Require Import Reals Lra Classical Classical_Prop.
+From Stdlib Require Import Reals Lra Classical Classical_Prop.
 Open Scope R_scope.
 
 Lemma Rmult_neg_pos_lt0 : forall a b : R, a < 0 -> 0 < b -> a * b < 0.

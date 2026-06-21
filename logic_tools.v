@@ -1,4 +1,4 @@
-﻿﻿From Stdlib Require Import Reals Lra Classical Classical_Prop.
+﻿From Stdlib Require Import Reals Lra Classical Classical_Prop.
 Open Scope R_scope.
 
 Lemma real_contrad_le_ge : forall x : R, x <= 0 -> 0 <= x -> x = 0.

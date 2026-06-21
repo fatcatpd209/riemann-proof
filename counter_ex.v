@@ -1,4 +1,4 @@
-﻿﻿From Stdlib Require Import Reals Lra Classical Classical_Prop.
+﻿From Stdlib Require Import Reals Lra Classical Classical_Prop.
 Require Import base_library main_proof.
 
 Open Scope R_scope.
