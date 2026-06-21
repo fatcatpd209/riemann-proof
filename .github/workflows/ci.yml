@@ -18,15 +18,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Coq + Coquelicot (apt, jammy universe)
+      - name: Install Coq (apt, jammy)
         run: |
           sudo apt-get update
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends coq libcoquelicot-coq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends coq
           coqc --version
-          echo "--- coquelicot location ---"
-          find /usr -name Rbar.v 2>/dev/null | head -5
-          find /usr -type d -name coquelicot 2>/dev/null | head -5
-          echo "---"
 
       - name: Layer 1  DAG static analysis
         run: python3 dag_verify.py

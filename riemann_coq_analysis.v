@@ -1,5 +1,28 @@
-Require Import Reals Lra Classical Psatz List Arith.
-From Coquelicot Require Import Rbar Derive.
+Require Import Reals Lra Classical Psatz.
+Open Scope R_scope.
+
+Inductive Rbar : Type :=
+  | Finite : R -> Rbar
+  | p_infty : Rbar
+  | m_infty : Rbar.
+
+Definition Rbar_plus (a b : Rbar) : Rbar :=
+  match a, b with
+  | Finite x, Finite y => Finite (x + y)
+  | p_infty, _ => p_infty
+  | m_infty, _ => m_infty
+  | _, p_infty => p_infty
+  | _, m_infty => m_infty
+  end.
+
+Definition Rbar_mult (a b : Rbar) : Rbar :=
+  match a, b with
+  | Finite x, Finite y => Finite (x * y)
+  | p_infty, _ => p_infty
+  | m_infty, _ => m_infty
+  | _, p_infty => p_infty
+  | _, m_infty => m_infty
+  end.
 
 Parameter Derive_at : (Rbar -> Rbar) -> Rbar -> Rbar.
 
@@ -17,8 +40,8 @@ Parameter Derive_sum :
   forall (f : Rbar -> Rbar) (g : Rbar -> Rbar) (x : Rbar),
   Derive_at (fun u : Rbar => Rbar_plus (f u) (g u)) x = Rbar_plus (Derive_at f x) (Derive_at g x).
 
-Parameter gaussian_integral_proportionality : forall sigma mu : R, sigma > 0 -> Prop.
-Parameter h_lambda_t_cosine_transform : forall lambda t : R, Prop.
-Parameter integrate_by_parts_sketch : forall (f : R -> R) (g : R -> R) (a b : R), Prop.
-Parameter cauchy_schwarz_rint : forall (f : R -> R) (g : R -> R) (a b : R), Prop.
-Parameter derivative_chain_rule_sketch : forall (f : Rbar -> Rbar) (g : Rbar -> Rbar) (x : Rbar), Prop.
+Parameter gaussian_integral_proportionality : forall (sigma mu : R), sigma > 0 -> Prop.
+Parameter h_lambda_t_cosine_transform : forall (lambda t : R), Prop.
+Parameter integrate_by_parts_sketch : forall (f g : R -> R) (a b : R), Prop.
+Parameter cauchy_schwarz_rint : forall (f g : R -> R) (a b : R), Prop.
+Parameter derivative_chain_rule_sketch : forall (f g : Rbar -> Rbar) (x : Rbar), Prop.
