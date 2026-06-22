@@ -1,0 +1,56 @@
+﻿﻿name: RiemannProof CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Coq (apt, jammy)
+        run: |
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends coq
+          coqc --version
+
+      - name: Layer 1  DAG static analysis
+        run: python3 dag_verify.py
+
+      - name: Layer 2  Axiom classification
+        run: python3 coq_axiom_check.py
+
+      - name: Compile riemann_coq.v
+        run: coqc -q -I . riemann_coq.v
+      - name: Compile logic_tools.v
+        run: coqc -q -I . logic_tools.v
+      - name: Compile base_library.v
+        run: coqc -q -I . base_library.v
+      - name: Compile main_proof.v
+        run: coqc -q -I . main_proof.v
+      - name: Compile phase2_layered.v
+        run: coqc -q -I . phase2_layered.v
+      - name: Compile extension_lehmer.v
+        run: coqc -q -I . extension_lehmer.v
+      - name: Compile riemann_hypothesis_formal.v
+        run: coqc -q -I . riemann_hypothesis_formal.v
+      - name: Compile riemann_coq_analysis.v
+        run: coqc -q -I . riemann_coq_analysis.v
+
+      - name: Upload compile artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coq-compile-results
+          path: "*.vo"
+          if-no-files-found: warn
