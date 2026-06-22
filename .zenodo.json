@@ -1,0 +1,29 @@
+{
+  "title": "A Complete Rigorous Proof of the Riemann Hypothesis via De Bruijn-Newman Heat Flow, Spectral Operators, and Coq Formalization",
+  "description": "Complete self-contained proof of the Riemann Hypothesis (RH). Coq formalisation paired with every lemma. Four mutually independent parts: (1) Critical self-adjoint Sturm-Liouville operator on the critical line. (2) De Bruijn-Newman heat flow Lambda <= 0. (3) Variational energy functional forcing. (4) RH deduced from Lambda = 0. Submitted to Preprints.org 22 Jun 2026 (ID 219611).",
+  "authors": [
+    { "name": "Jianming Xu", "orcid": "" }
+  ],
+  "licence": { "id": "MIT" },
+  "keywords": [
+    "Riemann Hypothesis",
+    "De Bruijn-Newman heat flow",
+    "critical self-adjoint operator",
+    "Sturm-Liouville spectral theory",
+    "variational energy functional",
+    "monotonicity proof",
+    "Coq formalization",
+    "zeta zeros",
+    "Lambda constant",
+    "Lehmer pairs",
+    "Preprints 219611"
+  ],
+  "version": "v1.0.0",
+  "publication_date": "2026-06-22",
+  "grants": [],
+  "communities": [],
+  "language": "eng",
+  "relations": [
+    { "doi": "", "version": "1.0", "recid": "219611" }
+  ]
+}

@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this code or manuscript, please cite it as:"
+title: >-
+  A Complete Rigorous Proof of the Riemann Hypothesis via De Bruijn-Newman Heat
+  Flow, Spectral Operators, and Coq Formalization
+authors:
+  - family-names: Xu
+    given-names: Jianming
+    orcid: ""
+    affiliation: Independent Researcher
+    address: China
+date-released: 2026-06-22
+version: 1.0.0
+license: MIT
+repository: https://github.com/fatcatpd209/riemann-proof
+url: https://github.com/fatcatpd209/riemann-proof
+keywords:
+  - Riemann Hypothesis
+  - De Bruijn-Newman heat flow
+  - critical self-adjoint operator
+  - Sturm-Liouville spectral theory
+  - variational energy functional
+  - monotonicity proof
+  - Coq formalization
+  - zeta zeros
+  - Lambda constant
+  - Lehmer pairs
+  - Preprints 219611
+references:
+  - type: article
+    title: Preprints.org submission (ID 219611)
+    url: https://www.preprints.org/manuscript/202606.219611
+commit: 1da9ca70e99266d3dfcb8f68f3e99e2af988c0d4
