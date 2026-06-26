@@ -8,7 +8,7 @@ jobs:
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install Coq via apt
         run: |
@@ -31,7 +31,7 @@ jobs:
           echo "==== END ====" >> coq_build.log
           cat coq_build.log | tail -100
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: coq-build-log
