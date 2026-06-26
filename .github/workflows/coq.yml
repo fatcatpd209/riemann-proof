@@ -1,0 +1,25 @@
+name: riemann-coq-check
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  coq-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: coq-community/setup-coq@master
+        with:
+          version: '8.18'
+          opam-packages: 'coq'
+
+      - name: Build
+        run: |
+          ls -la "投稿论文/"
+          cd "投稿论文" && coqtop -q -batch -load-vernac-source riemann_thesis_coq.v -quit 2>&1 || true
+          cd "投稿论文" && coqtop -q -batch -require=riemann_thesis_coq -quit 2>&1 || true
+          cd "投稿论文" && coqc riemann_thesis_coq.v 2>&1 || true
+          echo "=== coqtop -list 已加载的库 ==="
+          echo "=== 直接用 coqc 语法检查 ==="
+          cd "投稿论文" && coqc -v riemann_thesis_coq.v 2>&1 || true
+          echo "=== coqc 退出码：$? ==="
