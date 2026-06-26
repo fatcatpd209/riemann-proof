@@ -11,35 +11,23 @@ jobs:
       - name: Install Coq via apt
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y coq || true
-          coqc --version || true
-
-      - name: Try install via opam fallback
-        if: ${{ failure() }}
-        run: |
-          sudo apt-get install -y opam
-          opam init -y
-          eval $(opam env)
-          opam install -y coq.8.18.0
+          sudo apt-get install -y coq | tail -5
           coqc --version
 
       - name: Build
+        working-directory: "投稿论文"
         run: |
-          cd "投稿论文"
-          echo "=== ls ===" >> coq_build.log
-          ls -la >> coq_build.log 2>&1
-          echo "" >> coq_build.log
-
-          echo "=== coqc version ===" >> coq_build.log
-          coqc --version >> coq_build.log 2>&1 || true
-          echo "" >> coq_build.log
-
-          echo "=== coqc riemann_thesis_coq.v ===" >> coq_build.log
-          coqc -v riemann_thesis_coq.v >> coq_build.log 2>&1 ; echo "EXIT_CODE=$?" >> coq_build.log
-          echo "" >> coq_build.log
-
-          echo "=== coqtop ===" >> coq_build.log
-          coqtop -q -batch -load-vernac-source riemann_thesis_coq.v >> coq_build.log 2>&1 ; echo "EXIT_CODE=$?" >> coq_build.log
+          {
+            echo "==== ls ===="
+            ls -la
+            echo "==== coqc version ===="
+            coqc --version
+            echo "==== coqc riemann_thesis_coq.v ===="
+            coqc -v riemann_thesis_coq.v
+            echo "EXIT_COQC=$?"
+          } 2>&1 | tee -a coq_build.log
+          echo "==== END ====" >> coq_build.log
+          cat coq_build.log | tail -100
 
       - uses: actions/upload-artifact@v4
         if: always()
