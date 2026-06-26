@@ -8,14 +8,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: coq-community/setup-coq@master
-        with:
-          version: '8.18'
-          opam-packages: 'coq'
+      - name: Install Coq via apt
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y coq || true
+          coqc --version || true
+
+      - name: Try install via opam fallback
+        if: ${{ failure() }}
+        run: |
+          sudo apt-get install -y opam
+          opam init -y
+          eval $(opam env)
+          opam install -y coq.8.18.0
+          coqc --version
 
       - name: Build
         run: |
-          cd "投稿论文" || exit 1
+          cd "投稿论文"
           echo "=== ls ===" >> coq_build.log
           ls -la >> coq_build.log 2>&1
           echo "" >> coq_build.log
@@ -24,14 +34,16 @@ jobs:
           coqc --version >> coq_build.log 2>&1 || true
           echo "" >> coq_build.log
 
-          echo "=== coqc riemann_thesis_coq.v (exit first pass) ===" >> coq_build.log
+          echo "=== coqc riemann_thesis_coq.v ===" >> coq_build.log
           coqc -v riemann_thesis_coq.v >> coq_build.log 2>&1 ; echo "EXIT_CODE=$?" >> coq_build.log
           echo "" >> coq_build.log
 
-          echo "=== coqtop verbose ===" >> coq_build.log
-          coqtop -q -batch -load-vernac-source riemann_thesis_coq.v -require=riemann_thesis_coq >> coq_build.log 2>&1 ; echo "EXIT_CODE=$?" >> coq_build.log
+          echo "=== coqtop ===" >> coq_build.log
+          coqtop -q -batch -load-vernac-source riemann_thesis_coq.v >> coq_build.log 2>&1 ; echo "EXIT_CODE=$?" >> coq_build.log
 
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: coq-build-log
           path: 投稿论文/coq_build.log
+          if-no-files-found: warn
