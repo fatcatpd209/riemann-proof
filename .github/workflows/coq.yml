@@ -15,11 +15,23 @@ jobs:
 
       - name: Build
         run: |
-          ls -la "投稿论文/"
-          cd "投稿论文" && coqtop -q -batch -load-vernac-source riemann_thesis_coq.v -quit 2>&1 || true
-          cd "投稿论文" && coqtop -q -batch -require=riemann_thesis_coq -quit 2>&1 || true
-          cd "投稿论文" && coqc riemann_thesis_coq.v 2>&1 || true
-          echo "=== coqtop -list 已加载的库 ==="
-          echo "=== 直接用 coqc 语法检查 ==="
-          cd "投稿论文" && coqc -v riemann_thesis_coq.v 2>&1 || true
-          echo "=== coqc 退出码：$? ==="
+          cd "投稿论文" || exit 1
+          echo "=== ls ===" >> coq_build.log
+          ls -la >> coq_build.log 2>&1
+          echo "" >> coq_build.log
+
+          echo "=== coqc version ===" >> coq_build.log
+          coqc --version >> coq_build.log 2>&1 || true
+          echo "" >> coq_build.log
+
+          echo "=== coqc riemann_thesis_coq.v (exit first pass) ===" >> coq_build.log
+          coqc -v riemann_thesis_coq.v >> coq_build.log 2>&1 ; echo "EXIT_CODE=$?" >> coq_build.log
+          echo "" >> coq_build.log
+
+          echo "=== coqtop verbose ===" >> coq_build.log
+          coqtop -q -batch -load-vernac-source riemann_thesis_coq.v -require=riemann_thesis_coq >> coq_build.log 2>&1 ; echo "EXIT_CODE=$?" >> coq_build.log
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coq-build-log
+          path: 投稿论文/coq_build.log
