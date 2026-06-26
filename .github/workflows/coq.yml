@@ -5,8 +5,10 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   coq-check:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.2
 
       - name: Install Coq via apt
         run: |
@@ -29,7 +31,7 @@ jobs:
           echo "==== END ====" >> coq_build.log
           cat coq_build.log | tail -100
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4.4
         if: always()
         with:
           name: coq-build-log
